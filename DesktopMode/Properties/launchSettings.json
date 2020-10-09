@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DesktopMode": {
+      "commandName": "Project",
+      "commandLineArgs": "-ArgsARGS"
+    }
+  }
+}
