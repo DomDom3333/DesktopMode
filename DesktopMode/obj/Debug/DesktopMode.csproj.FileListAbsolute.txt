@@ -1,0 +1,11 @@
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\bin\Debug\DesktopMode.exe.config
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\bin\Debug\DesktopMode.exe
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\bin\Debug\DesktopMode.pdb
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.Form1.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.Properties.Resources.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.Setup.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.csproj.GenerateResource.cache
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.csproj.CoreCompileInputs.cache
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.exe
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.pdb
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Debug\DesktopMode.csprojAssemblyReference.cache

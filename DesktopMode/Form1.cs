@@ -1,53 +1,98 @@
-﻿using DesktopMode.Saved_Configs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsDesktop;
+using System.Windows.Forms.VisualStyles;
 
 namespace DesktopMode
 {
     public partial class Form1 : Form
     {
-        string[] args = Environment.GetCommandLineArgs();
-        VirtualDesktop[] allDesktops = new VirtualDesktop[10];
+
+        public string[] modes;
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void FORM1_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            VirtualDesktop.GetDesktops().CopyTo(allDesktops, 0);
-            if (args.Length > 1)
+            Process.Start(Properties.Settings.Default.modesLocation);
+        }
+
+        private void readAllModes()
+        {
+            modes = Properties.Settings.Default.allModes.Split(',');
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            tb_NewModePath.Text = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+
+            if ((Properties.Settings.Default.firstStartup == true) || Properties.Settings.Default.modesLocation == "")
             {
-                if(args[1] == "-ARGS")
+                Setup form = new Setup();
+                form.ShowDialog();
+                //MessageBox.Show("One day, there shall be a install scirpt here. Until then you may continiue.");
+                //Properties.Settings.Default.firstStartup = false;
+                //Properties.Settings.Default.modesLocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            }
+            else if(false)
+            {
+                readAllModes();
+                MessageBox.Show("Welcome back!");
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+
+        private void newMode()
+        {
+
+        }
+        private void mapNewMode(string path)
+        {
+            string[] oldModes = modes;
+            modes = new string[oldModes.Length + 1]; //bugging out here. Somehow update modes to accomedate new entry. 2D array maybe?
+            string name = new DirectoryInfo(path).Name;
+            updateAllModes();
+        }
+        private void updateAllModes()
+        {
+            string allModes = "";
+            for(int i = 0; i < modes.Length; i++)
+            {
+                allModes += modes[i];
+                if (i + 1 < modes.Length)
                 {
-                    allDesktops[1] = VirtualDesktop.Create();
-                    allDesktops[1].Switch();
-                    Application.Exit();
+                    allModes += ",";
                 }
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void bt_MapNew_Click(object sender, EventArgs e)
         {
-            if(allDesktops[1] == null)
+            string path = "";
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                DesktopConfig DC = new DesktopConfig("newConfig", "Arg");
-                DC.CreateNewConfig();
-                DC.Load();
+                path = folderBrowserDialog1.SelectedPath;
+                if (Directory.Exists(path))
+                {
+                    mapNewMode(path);
+                }
             }
-            //allDesktops[1].Switch();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
     }
 }
