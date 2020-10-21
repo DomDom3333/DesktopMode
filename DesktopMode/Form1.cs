@@ -16,8 +16,9 @@ namespace DesktopMode
 {
     public partial class Form1 : Form
     {
-
-        public string[] modes;
+        private const int MAXMODES = 100;
+        private string[] modes = new string[MAXMODES];
+        private int numModes = 0;
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +31,9 @@ namespace DesktopMode
 
         private void readAllModes()
         {
-            modes = Properties.Settings.Default.allModes.Split(',');
+            string[] inputModes = Properties.Settings.Default.allModes.Split(',');
+            numModes = inputModes.Length;
+            inputModes.CopyTo(modes, 0);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -45,7 +48,7 @@ namespace DesktopMode
                 //Properties.Settings.Default.firstStartup = false;
                 //Properties.Settings.Default.modesLocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             }
-            else if(false)
+            else
             {
                 readAllModes();
                 MessageBox.Show("Welcome back!");
@@ -64,10 +67,29 @@ namespace DesktopMode
         }
         private void mapNewMode(string path)
         {
-            string[] oldModes = modes;
-            modes = new string[oldModes.Length + 1]; //bugging out here. Somehow update modes to accomedate new entry. 2D array maybe?
             string name = new DirectoryInfo(path).Name;
+            if (checkIfModeExists(name))
+            {
+                MessageBox.Show("This Mode already exists or that name is taken. Please use another name.");
+                return;
+            }
+            addModeToArray(name);
+            //createShortcut    (Generate Shortcut to mode)
+            //distroShortcut    (Copy shortcut to all Modes)
             updateAllModes();
+        }
+        private void addModeToArray(string name)
+        {
+            int index = 0;
+            for(int i = 0; modes[i] != ""; i++)
+            {
+                index++;
+            }
+            modes[index+1] = name;
+        }
+        private bool checkIfModeExists(string name)
+        {
+            return modes.Contains(name);
         }
         private void updateAllModes()
         {
@@ -83,16 +105,19 @@ namespace DesktopMode
         }
         private void bt_MapNew_Click(object sender, EventArgs e)
         {
-            string path = "";
-            DialogResult result = folderBrowserDialog1.ShowDialog();
-            if (result == DialogResult.OK)
+            if ((numModes + 1) < MAXMODES)
             {
-                path = folderBrowserDialog1.SelectedPath;
-                if (Directory.Exists(path))
+                string path = "";
+                DialogResult result = folderBrowserDialog1.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    mapNewMode(path);
+                    path = folderBrowserDialog1.SelectedPath;
+                    if (Directory.Exists(path))
+                    {
+                        mapNewMode(path);
+                    }
                 }
-            }
+            }      
         }
     }
 }
