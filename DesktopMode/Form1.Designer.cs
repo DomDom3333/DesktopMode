@@ -1,6 +1,6 @@
 ﻿namespace DesktopMode
 {
-    partial class Form1
+    partial class frm_Main
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@
             this.bt_OpenModesLocation.TabIndex = 0;
             this.bt_OpenModesLocation.Text = "Open Modes Location";
             this.bt_OpenModesLocation.UseVisualStyleBackColor = true;
-            this.bt_OpenModesLocation.Click += new System.EventHandler(this.button1_Click);
+            this.bt_OpenModesLocation.Click += new System.EventHandler(this.bt_openModesLocation_Click);
             // 
             // bt_MapNew
             // 
@@ -122,7 +122,7 @@
             this.bt_BrowseLocation.Text = "Browse";
             this.bt_BrowseLocation.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -136,10 +136,10 @@
             this.Controls.Add(this.bt_CreateNew);
             this.Controls.Add(this.bt_MapNew);
             this.Controls.Add(this.bt_OpenModesLocation);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "frm_Main";
+            this.Text = "Desktop Modes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Main_FormClosing);
+            this.Load += new System.EventHandler(this.frm_Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

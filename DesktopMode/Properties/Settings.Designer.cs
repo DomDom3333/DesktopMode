@@ -79,5 +79,17 @@ namespace DesktopMode.Properties {
                 this["SetupHelper"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ShortcutCollection {
+            get {
+                return ((string)(this["ShortcutCollection"]));
+            }
+            set {
+                this["ShortcutCollection"] = value;
+            }
+        }
     }
 }
