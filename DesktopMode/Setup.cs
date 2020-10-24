@@ -60,9 +60,8 @@ namespace DesktopMode
                     {
                         Properties.Settings.Default.SetupHelper = tb_ModeName.Text + ",0";
                     }
-                    string shortCutBinPath = Properties.Settings.Default.modesLocation + "\\SchortcutBin";
-                    Directory.CreateDirectory(shortCutBinPath);
-                    Properties.Settings.Default.ShortcutCollection = shortCutBinPath;
+                    Properties.Settings.Default.ShortcutCollection = Properties.Settings.Default.modesLocation + "\\SchortcutBin";
+                    Directory.CreateDirectory(Properties.Settings.Default.ShortcutCollection);
                 }
                 this.Close();
             }

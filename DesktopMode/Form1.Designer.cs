@@ -31,20 +31,16 @@
             this.bt_OpenModesLocation = new System.Windows.Forms.Button();
             this.bt_MapNew = new System.Windows.Forms.Button();
             this.bt_CreateNew = new System.Windows.Forms.Button();
-            this.tb_NewModePath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.bt_CreateShortcuts = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_NewModeName = new System.Windows.Forms.TextBox();
-            this.bt_BrowseLocation = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // bt_OpenModesLocation
             // 
-            this.bt_OpenModesLocation.Location = new System.Drawing.Point(12, 256);
+            this.bt_OpenModesLocation.Location = new System.Drawing.Point(12, 99);
             this.bt_OpenModesLocation.Name = "bt_OpenModesLocation";
-            this.bt_OpenModesLocation.Size = new System.Drawing.Size(82, 39);
+            this.bt_OpenModesLocation.Size = new System.Drawing.Size(80, 39);
             this.bt_OpenModesLocation.TabIndex = 0;
             this.bt_OpenModesLocation.Text = "Open Modes Location";
             this.bt_OpenModesLocation.UseVisualStyleBackColor = true;
@@ -62,43 +58,17 @@
             // 
             // bt_CreateNew
             // 
-            this.bt_CreateNew.Location = new System.Drawing.Point(98, 13);
+            this.bt_CreateNew.Location = new System.Drawing.Point(98, 12);
             this.bt_CreateNew.Name = "bt_CreateNew";
             this.bt_CreateNew.Size = new System.Drawing.Size(80, 80);
             this.bt_CreateNew.TabIndex = 2;
             this.bt_CreateNew.Text = "Create New";
             this.bt_CreateNew.UseVisualStyleBackColor = true;
             // 
-            // tb_NewModePath
-            // 
-            this.tb_NewModePath.Location = new System.Drawing.Point(184, 73);
-            this.tb_NewModePath.MaxLength = 32;
-            this.tb_NewModePath.Name = "tb_NewModePath";
-            this.tb_NewModePath.Size = new System.Drawing.Size(261, 20);
-            this.tb_NewModePath.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(181, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Location of Mode:";
-            // 
-            // bt_CreateShortcuts
-            // 
-            this.bt_CreateShortcuts.Location = new System.Drawing.Point(100, 256);
-            this.bt_CreateShortcuts.Name = "bt_CreateShortcuts";
-            this.bt_CreateShortcuts.Size = new System.Drawing.Size(82, 39);
-            this.bt_CreateShortcuts.TabIndex = 5;
-            this.bt_CreateShortcuts.Text = "Create Shortcuts";
-            this.bt_CreateShortcuts.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(181, 16);
+            this.label2.Location = new System.Drawing.Point(188, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 7;
@@ -106,33 +76,20 @@
             // 
             // tb_NewModeName
             // 
-            this.tb_NewModeName.Location = new System.Drawing.Point(290, 13);
+            this.tb_NewModeName.Location = new System.Drawing.Point(297, 43);
             this.tb_NewModeName.MaxLength = 32;
             this.tb_NewModeName.Name = "tb_NewModeName";
             this.tb_NewModeName.Size = new System.Drawing.Size(155, 20);
             this.tb_NewModeName.TabIndex = 6;
             this.tb_NewModeName.Text = "New Mode Name";
             // 
-            // bt_BrowseLocation
-            // 
-            this.bt_BrowseLocation.Location = new System.Drawing.Point(290, 44);
-            this.bt_BrowseLocation.Name = "bt_BrowseLocation";
-            this.bt_BrowseLocation.Size = new System.Drawing.Size(75, 23);
-            this.bt_BrowseLocation.TabIndex = 8;
-            this.bt_BrowseLocation.Text = "Browse";
-            this.bt_BrowseLocation.UseVisualStyleBackColor = true;
-            // 
             // frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(467, 307);
-            this.Controls.Add(this.bt_BrowseLocation);
+            this.ClientSize = new System.Drawing.Size(467, 152);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tb_NewModeName);
-            this.Controls.Add(this.bt_CreateShortcuts);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.tb_NewModePath);
             this.Controls.Add(this.bt_CreateNew);
             this.Controls.Add(this.bt_MapNew);
             this.Controls.Add(this.bt_OpenModesLocation);
@@ -150,12 +107,8 @@
         private System.Windows.Forms.Button bt_OpenModesLocation;
         private System.Windows.Forms.Button bt_MapNew;
         private System.Windows.Forms.Button bt_CreateNew;
-        private System.Windows.Forms.TextBox tb_NewModePath;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button bt_CreateShortcuts;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_NewModeName;
-        private System.Windows.Forms.Button bt_BrowseLocation;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
