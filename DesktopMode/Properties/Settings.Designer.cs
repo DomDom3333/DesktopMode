@@ -47,12 +47,15 @@ namespace DesktopMode.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool firstStartup {
             get {
                 return ((bool)(this["firstStartup"]));
+            }
+            set {
+                this["firstStartup"] = value;
             }
         }
         

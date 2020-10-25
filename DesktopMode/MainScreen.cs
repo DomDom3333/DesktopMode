@@ -30,6 +30,10 @@ namespace DesktopMode
         {
             Process.Start(Properties.Settings.Default.modesLocation);
         }
+        private void tb_NewModeName_TextChanged(object sender, EventArgs e)
+        {
+            tb_NewModeName.Text = replaceSpaces(tb_NewModeName.Text);
+        }
         private void frm_Main_Load(object sender, EventArgs e)
         {
             string[] args = Environment.GetCommandLineArgs();
@@ -42,17 +46,17 @@ namespace DesktopMode
                 //This ist to create a backup of the current user Desktop in case something goes wrong or missing.
                 if (toDoFromSetup[0] != "")
                 {
-                    tb_NewModeName.Text = toDoFromSetup[0];
-                    if (toDoFromSetup[1] == "1") 
-                    {
-                        newMode();
-                    }
-                    else
-                    {
-                        newMode(false);
-                    }
+                    //similar to newMode(), this just creates a folder of current desktop contents without adding it to mode list
+                    string newModeName = toDoFromSetup[0];
+                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    Directory.CreateDirectory(Properties.Settings.Default.modesLocation + "\\" + newModeName);
+                    deleteModeShortcutsFromPath();
+                    CopyFolderContents(desktopPath, Properties.Settings.Default.modesLocation + "\\" + newModeName);
+                    tb_NewModeName.Text = "";
+                    MessageBox.Show("A Backup Folder was created at the location of the other Modes, in case something goes wrong.", "Backup folder created.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
-                tb_NewModeName.Text = "";
+                Properties.Settings.Default.firstStartup = false;
             }
             else
             {
@@ -68,43 +72,40 @@ namespace DesktopMode
                         MessageBox.Show("Mode does not exist or is not registerd. Recreate the Mode or Map one with that name.");
                     }
                 }
-                MessageBox.Show("Welcome back!");
             }
         }
 
         private void frm_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.Save();
+            shutDown();
         }
 
-
-
+        private void bt_Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void bt_Help_Click(object sender, EventArgs e)
+        {
+            HelpMenu form = new HelpMenu();
+            form.ShowDialog();
+        }
         private void bt_MapNew_Click(object sender, EventArgs e)
         {
-            if ((numModes + 1) < MAXMODES)
-            {
-                string path = "";
-                DialogResult result = folderBrowserDialog1.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    path = folderBrowserDialog1.SelectedPath;
-                    if (Directory.Exists(path))
-                    {
-                        mapNewMode(path);
-                    }
-                }
-            }      
+            mapNewMode(); 
+        }
+        private void bt_CreateNew_Click(object sender, EventArgs e)
+        {
+            newMode();
         }
 
 
-//----------[ Custom Methods ] ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //----------[ Custom Methods ] ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
         private void newMode(bool addToDesktop = true)
         {
-            if(numModes >= 100)
+            if (!checkIfValid())
             {
-                MessageBox.Show("You have reached the macimum number of modes. Please Delete some to create a new one.", "Too many modes!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             DialogResult sure = MessageBox.Show("This will create a new mode based on what is CURRENTLY on your Desktp. It will have the name: " + tb_NewModeName.Text + "\n Are you sure you want to continiue?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -113,61 +114,107 @@ namespace DesktopMode
                 return;
             }
             string newModeName = tb_NewModeName.Text;
-            Directory.CreateDirectory(Properties.Settings.Default.allModes + "\\" + newModeName);
+            newModeName = replaceSpaces(newModeName);
+            tb_NewModeName.Text = newModeName;
+            Directory.CreateDirectory(Properties.Settings.Default.modesLocation + "\\" + newModeName);
             addModeToArray(newModeName);
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string[] files = Directory.GetFiles(desktopPath);
             deleteModeShortcutsFromPath();
-            CopyFolderContents(desktopPath, Properties.Settings.Default.allModes + "\\" + newModeName);
+            CopyFolderContents(desktopPath, Properties.Settings.Default.modesLocation + "\\" + newModeName);
             if (addToDesktop)
             {
-                createShortcut(newModeName + " Mode", Properties.Settings.Default.ShortcutCollection, System.Reflection.Assembly.GetExecutingAssembly().Location);
+                createShortcut(newModeName, Properties.Settings.Default.ShortcutCollection, System.Reflection.Assembly.GetExecutingAssembly().Location);
             }
             CopyFolderContents(Properties.Settings.Default.ShortcutCollection, desktopPath);
             Properties.Settings.Default.currentMode = newModeName;
+            numModes++;
         }
-        private void mapNewMode(string path)
+        private void mapNewMode(bool addToDesktop = true)
         {
-            if (numModes >= 100)
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result != DialogResult.OK)
             {
-                MessageBox.Show("You have reached the macimum number of modes. Please Delete some to create a new one.", "Too many modes!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string folderName = new DirectoryInfo(path).Name;
+            string path = folderBrowserDialog1.SelectedPath;
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+            if (!checkIfValid())
+            {
+                return;
+            }
             string name = tb_NewModeName.Text;
-            if (checkIfModeExists(name))
-            {
-                MessageBox.Show("This Mode already exists or that name is taken. Please use another name.");
-                return;
-            }
             addModeToArray(name);
             Directory.Move(path, Properties.Settings.Default.modesLocation + "\\" + name);
-            createShortcut(name, Properties.Settings.Default.ShortcutCollection, System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (addToDesktop)
+            {
+                createShortcut(name, Properties.Settings.Default.ShortcutCollection, System.Reflection.Assembly.GetExecutingAssembly().Location);
+            }
             updateAllModes();
+            numModes++;
         }
 
         private void switchMode(string switchTo)
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             deleteModeShortcutsFromPath(); //Filter and Delete mode Shortcuts from Desktop (desktop = Default Value)
-            CopyFolderContents(desktopPath, Properties.Settings.Default.allModes + "\\" + Properties.Settings.Default.currentMode); //copy Desktop to Mode Folder
+            CopyFolderContents(desktopPath, Properties.Settings.Default.modesLocation + "\\" + Properties.Settings.Default.currentMode); //copy Desktop to Mode Folder
             deleteAllFilesFromPath(desktopPath); //clear Desktop
-            CopyFolderContents(Properties.Settings.Default.allModes + "\\" + switchTo, desktopPath); //populate Desktop with new mode
+            CopyFolderContents(Properties.Settings.Default.modesLocation + "\\" + switchTo, desktopPath); //populate Desktop with new mode
             CopyFolderContents(Properties.Settings.Default.ShortcutCollection, desktopPath); //Add shortcuts
             Properties.Settings.Default.currentMode = switchTo;
+        }
+        private void shutDown()
+        {
+            if(Properties.Settings.Default.firstStartup == false)
+            {
+                saveAll();
+            }
         }
 
         //----------[ Support Methods ] ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        private bool checkIfValid()
+        {
+            if (numModes >= MAXMODES)
+            {
+                MessageBox.Show("You have reached the macimum number of modes. Please Delete some to create a new one.", "Too many modes!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else if (tb_NewModeName.Text == "")
+            {
+                MessageBox.Show("Please enter a name for first.", "Name Needed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else if (checkIfModeExists(tb_NewModeName.Text))
+            {
+                MessageBox.Show("This mode already exists. Please give it another name.", "Mode already exists!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+        private string replaceSpaces(string input)
+        {
+            return input.Replace(' ', '_');
+        }
+        private void saveAll()
+        {
+            updateAllModes();
+            Properties.Settings.Default.Save();
+        }
         private void createShortcut(string shortcutName, string shortcutPath, string targetFileLocation)
         {
-            string shortcutLocation = System.IO.Path.Combine(shortcutPath, shortcutName + ".lnk -" + shortcutName);
+            string shortcutLocation = System.IO.Path.Combine(shortcutPath, shortcutName + ".lnk");
             IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
             IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutLocation);
 
-            shortcut.Description = "This shortcut takes you to your " + shortcutName;   // The description of the shortcut
-            shortcut.TargetPath = targetFileLocation;                                   // The path of the file that will launch when the shortcut is run
-            shortcut.Save();                                                            // Save the shortcut
+            shortcut.Description = "This shortcut takes you to your " + shortcutName;           // The description of the shortcut
+            shortcut.TargetPath = targetFileLocation;                                           // The path of the file that will launch when the shortcut is run
+            shortcut.Arguments = shortcutName;                                                  // Adds schortcut arguments
+            shortcut.IconLocation = System.Reflection.Assembly.GetExecutingAssembly().Location; // Sets icon Location to own EXE
+            shortcut.Save();                                                                    // Save the shortcut
         }
         private void addModeToArray(string name)
         {
@@ -182,16 +229,16 @@ namespace DesktopMode
         {
             return modes.Contains(name);
         }
-        private bool checkIfModFolderExists(string name)
+        private bool checkIfModeFolderExists(string name)
         {
-            return Directory.Exists(Properties.Settings.Default.allModes + "\\" + name);
+            return Directory.Exists(Properties.Settings.Default.modesLocation + "\\" + name);
         }
         private void readAllModes()
         {
             string[] inputModes = Properties.Settings.Default.allModes.Split(',');
             numModes = inputModes.Length;
             for(int i = 0; i < inputModes.Length; i++){
-                if (checkIfModFolderExists(inputModes[i]))
+                if (checkIfModeFolderExists(inputModes[i]))
                 {
                     modes[i] = inputModes[i];
                 }
@@ -200,18 +247,26 @@ namespace DesktopMode
         }
         private void updateAllModes()
         {
+            updateShortcutBin();
             string allModes = "";
             for (int i = 0; i < modes.Length; i++)
             {
-                if (checkIfModFolderExists(modes[i]) & File.Exists(Properties.Settings.Default.ShortcutCollection + modes[i] + ".lnk"))
+                if (modes[i] == null || modes[i] == "")
                 {
-                    allModes += modes[i];
-                    if (i + 1 < modes.Length)
+                    continue;
+                }
+                if (checkIfModeFolderExists(modes[i]) & File.Exists(Properties.Settings.Default.ShortcutCollection + "\\" + modes[i] + ".lnk"))
+                {
+                    if (modes[i] != "")
                     {
-                        allModes += ",";
+                        allModes += modes[i];
+                        if (i + 1 < modes.Length)
+                        {
+                            allModes += ",";
+                        }
                     }
                 }
-                else if (checkIfModFolderExists(modes[i]) & !File.Exists(Properties.Settings.Default.ShortcutCollection + modes[i] + ".lnk"))
+                else if (checkIfModeFolderExists(modes[i]) & !File.Exists(Properties.Settings.Default.ShortcutCollection + "\\" + modes[i] + ".lnk"))
                 {
                     MessageBox.Show("A mode folder was found without linked appropriate mode shortcut. Shortcut was created. If you wanted to delete the mode, please delete the folder.", "Shortcut not found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     createShortcut(modes[i], Properties.Settings.Default.ShortcutCollection, System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -221,10 +276,24 @@ namespace DesktopMode
                         allModes += ",";
                     }
                 }
-                else if (!checkIfModFolderExists(modes[i]) & File.Exists(Properties.Settings.Default.ShortcutCollection + modes[i] + ".lnk"))
+                else if (!checkIfModeFolderExists(modes[i]) & File.Exists(Properties.Settings.Default.ShortcutCollection + "\\" + modes[i] + ".lnk"))
                 {
                     MessageBox.Show("A mode shortcut was found without linked appropriate mode folder. Shortcut was deleted. If you want to recreate the mode, please remap the Folder.", "Folder not found", MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     File.Delete(Properties.Settings.Default.ShortcutCollection + modes[i] + ".lnk");
+                }
+            }
+        }
+        private void updateShortcutBin()
+        {
+            string[] files = Directory.GetFiles(Properties.Settings.Default.ShortcutCollection);
+            if (files == null){
+                return;
+            }
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (!checkIfModeExists(Path.GetFileNameWithoutExtension(files[i])) || !checkIfModeFolderExists(Path.GetFileNameWithoutExtension(files[i])))
+                {
+                    File.Delete(files[i]);
                 }
             }
         }
@@ -253,14 +322,13 @@ namespace DesktopMode
                 }
             }
         }
-        public static void Copy(string sourceDirectory, string targetDirectory)
+        public static void Copy(string sourceDirectory, string targetDirectory) //this copies the entire folder
         {
             var diSource = new DirectoryInfo(sourceDirectory);
             var diTarget = new DirectoryInfo(targetDirectory);
 
             CopyAll(diSource, diTarget);
         }
-
         public static void CopyAll(DirectoryInfo source, DirectoryInfo target)
         {
             Directory.CreateDirectory(target.FullName);
@@ -279,7 +347,7 @@ namespace DesktopMode
                 CopyAll(diSourceSubDir, nextTargetSubDir);
             }
         }
-        public static void CopyFolderContents(string sourceFolder, string destinationFolder)
+        public static void CopyFolderContents(string sourceFolder, string destinationFolder) //this only copies the folder contents
         {
             if (Directory.Exists(sourceFolder))
             {

@@ -117,17 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Desktop mode allows you to split desktop icons into groups and to then load them one group at a time to create a "Mode". 
-This can be a "Work Mode" or "Game Mode" or whatever you feel like. 
-To chancge Mode, you simply run the according shortcut on the Desktop!
-
-Modes are customizable by you and can include as many or as few icons as you want. In the next few steps, we will set up where these Modes will be saved and create a Backup of your current Desktop.
-
-Press the Next button to continiue....
-
-</value>
-  </data>
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

@@ -117,20 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Desktop mode allows you to split desktop icons into groups and to then load them one group at a time to create a "Mode". 
-This can be a "Work Mode" or "Game Mode" or whatever you feel like. 
-To chancge Mode, you simply run the according shortcut on the Desktop!
+  <data name="tb_Intro.Text" xml:space="preserve">
+    <value>Desktop Modes work by copying the contents of your Desktop to another folder and replacing it with the contents of a second folder. This allows you to quickly change the Desktop Layout between different 'Modes'. 
+To switch between different modes, use the shortcuts the application creates for each mode.
+Accidentally deleted a shortcut? No problem!. The app should create a new shortcut for you by the time you open the app again.
 
-Modes are customizable by you and can include as many or as few icons as you want. In the next few steps, we will set up where these Modes will be saved and create a Backup of your current Desktop.
 
-Press the Next button to continiue....
+In this version you can:
+- Create new modes based on your current Desktop
+- Map the content of a folder AS a new mode
+- Delete a Mode by deleting its Folder</value>
+  </data>
+  <data name="tb_MapNew.Text" xml:space="preserve">
+    <value>Mapping a new mode means that you create a folder with shortcuts, files, etc. and then making the application know that this is a new mode. You can then switch to it quickly and any time.
 
+So to map a new mode you have to:
+1. Create a folder somewhere.
+2. Fill it with what you would like to have on your desktop when this mode is active.
+3. Type a name for the Mode in the Textbox
+4. Open the app and select the 'Map new Mode' Button
+4. Navigate to the folder you created previously
+5. Done. The folder should dissapear and a new shortcut should be on your desktop.
+
+You can now open the shortcut and it should fill your desktop with the new mode you have just created.</value>
+  </data>
+  <data name="tb_CreateNew.Text" xml:space="preserve">
+    <value>Creating a new mode is easy. This Button will create a new mode out of the contents of your desktop as it is.
+
+So to create  a new mode you have to:
+1. Fill your desktop with what you would like to have on your desktop when this mode is active.
+2. Type a name for the Mode in the Textbox
+3. Open the app and select the 'Create new Mode' Button
+4. Done. A new shortcut should be on your desktop.
+
+You can now use the shortcut to go back to this state of your desktop anytime.
 </value>
   </data>
-  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="tb_DeletingMode.Text" xml:space="preserve">
+    <value>Deleting modes is super easy. To delete a mode, you simply delete its folder and restart the app. It will tell you that it found a missing folder and that it deleted the shortcut for it.
+
+To delete a mode you:
+1. Click on 'Open Modes Location'
+2. Find the mode you would like to delete
+3. Delete the folder (Make sure there is nothing valuable in there
+4. Restart this app.
+
+Done! It should give you a warning about it not finding the folder of the mod you just deleted and that is ok. Its letting you know that everything worked.
+If you get that warning even though you havent deleted a mode, there might be something wrong.</value>
+  </data>
+  <data name="tb_TippsTricks.Text" xml:space="preserve">
+    <value>You now know how to use Desktop Modes. If you find any bugs, please submit them to:
+www.github.com/DomDom3333/DesktopModes
+There you will also find updates and the author of this app (DomDom3333 on Github).
+
+Now for some final Tipps &amp; Tricks:
+
+- You can create a maximum of 100 Modes.
+- There is a Folder among the Modes called Shortcut Bin. There you can find ALL shortcuts.
+- Before you make your first mode, it is STRONGLY recommended to make a backup of your desktop.
+- You can help with the development and add your own features to this on github (Link above).</value>
+  </data>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

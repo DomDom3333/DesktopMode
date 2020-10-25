@@ -34,13 +34,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbp_Save = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
             this.bt_ClearSave = new System.Windows.Forms.Button();
             this.bt_BrowseSave = new System.Windows.Forms.Button();
             this.tb_SaveLocationPath = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbp_FirstMode = new System.Windows.Forms.TabPage();
+            this.tbp_Backup = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cb_Skip = new System.Windows.Forms.CheckBox();
             this.tb_ModeName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,22 +49,21 @@
             this.bt_Cancel = new System.Windows.Forms.Button();
             this.bt_Finish = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.cb_AddToDesktop = new System.Windows.Forms.CheckBox();
-            this.cb_Skip = new System.Windows.Forms.CheckBox();
+            this.bt_Prev = new System.Windows.Forms.Button();
+            this.bt_Next = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.label10 = new System.Windows.Forms.Label();
             this.tbc_Setup.SuspendLayout();
             this.tbp_Welcome.SuspendLayout();
             this.tbp_Save.SuspendLayout();
-            this.tbp_FirstMode.SuspendLayout();
+            this.tbp_Backup.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbc_Setup
             // 
             this.tbc_Setup.Controls.Add(this.tbp_Welcome);
             this.tbc_Setup.Controls.Add(this.tbp_Save);
-            this.tbc_Setup.Controls.Add(this.tbp_FirstMode);
+            this.tbc_Setup.Controls.Add(this.tbp_Backup);
             this.tbc_Setup.Location = new System.Drawing.Point(12, 13);
             this.tbc_Setup.Name = "tbc_Setup";
             this.tbc_Setup.SelectedIndex = 0;
@@ -88,7 +88,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(437, 148);
+            this.textBox1.Size = new System.Drawing.Size(437, 162);
             this.textBox1.TabIndex = 1;
             this.textBox1.TabStop = false;
             this.textBox1.Text = resources.GetString("textBox1.Text");
@@ -104,7 +104,7 @@
             // 
             // tbp_Save
             // 
-            this.tbp_Save.Controls.Add(this.label4);
+            this.tbp_Save.Controls.Add(this.label10);
             this.tbp_Save.Controls.Add(this.bt_ClearSave);
             this.tbp_Save.Controls.Add(this.bt_BrowseSave);
             this.tbp_Save.Controls.Add(this.tb_SaveLocationPath);
@@ -117,15 +117,6 @@
             this.tbp_Save.TabIndex = 1;
             this.tbp_Save.Text = "Save Location";
             this.tbp_Save.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 150);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(354, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "You can change this later, but it should be a place you can access easily.";
             // 
             // bt_ClearSave
             // 
@@ -172,20 +163,40 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Lets start simple!";
             // 
-            // tbp_FirstMode
+            // tbp_Backup
             // 
-            this.tbp_FirstMode.Controls.Add(this.cb_Skip);
-            this.tbp_FirstMode.Controls.Add(this.cb_AddToDesktop);
-            this.tbp_FirstMode.Controls.Add(this.tb_ModeName);
-            this.tbp_FirstMode.Controls.Add(this.label8);
-            this.tbp_FirstMode.Controls.Add(this.label7);
-            this.tbp_FirstMode.Controls.Add(this.label5);
-            this.tbp_FirstMode.Location = new System.Drawing.Point(4, 22);
-            this.tbp_FirstMode.Name = "tbp_FirstMode";
-            this.tbp_FirstMode.Size = new System.Drawing.Size(450, 256);
-            this.tbp_FirstMode.TabIndex = 2;
-            this.tbp_FirstMode.Text = "First Mode";
-            this.tbp_FirstMode.UseVisualStyleBackColor = true;
+            this.tbp_Backup.Controls.Add(this.label9);
+            this.tbp_Backup.Controls.Add(this.cb_Skip);
+            this.tbp_Backup.Controls.Add(this.tb_ModeName);
+            this.tbp_Backup.Controls.Add(this.label8);
+            this.tbp_Backup.Controls.Add(this.label7);
+            this.tbp_Backup.Controls.Add(this.label5);
+            this.tbp_Backup.Location = new System.Drawing.Point(4, 22);
+            this.tbp_Backup.Name = "tbp_Backup";
+            this.tbp_Backup.Size = new System.Drawing.Size(450, 256);
+            this.tbp_Backup.TabIndex = 2;
+            this.tbp_Backup.Text = "Backup";
+            this.tbp_Backup.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(77, 163);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(289, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "CREATING A BACKUP IS STRONGLY RECCOMENDED!!!";
+            // 
+            // cb_Skip
+            // 
+            this.cb_Skip.AutoSize = true;
+            this.cb_Skip.Location = new System.Drawing.Point(277, 82);
+            this.cb_Skip.Name = "cb_Skip";
+            this.cb_Skip.Size = new System.Drawing.Size(53, 17);
+            this.cb_Skip.TabIndex = 5;
+            this.cb_Skip.Text = "Skip?";
+            this.cb_Skip.UseVisualStyleBackColor = true;
+            this.cb_Skip.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // tb_ModeName
             // 
@@ -195,35 +206,33 @@
             this.tb_ModeName.Size = new System.Drawing.Size(177, 20);
             this.tb_ModeName.TabIndex = 3;
             this.tb_ModeName.Text = "Backup Mode";
-            this.tb_ModeName.Click += new System.EventHandler(this.tb_ModeName_Clicked);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(25, 31);
+            this.label8.Location = new System.Drawing.Point(38, 31);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(401, 13);
+            this.label8.Size = new System.Drawing.Size(371, 13);
             this.label8.TabIndex = 2;
-            this.label8.Text = "We will use your current Desktop. It will be a Backup Mode, in case thigs go wron" +
-    "g.";
+            this.label8.Text = "We will use your current Desktop. It will be a Backup, in case thigs go wrong.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 65);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(180, 13);
+            this.label7.Size = new System.Drawing.Size(182, 13);
             this.label7.TabIndex = 1;
-            this.label7.Text = "What do you want to call this Mode?";
+            this.label7.Text = "What do you want to call this Folder?";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(148, 9);
+            this.label5.Location = new System.Drawing.Point(174, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(142, 13);
+            this.label5.Size = new System.Drawing.Size(116, 13);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Lets Create your First Mode!!";
+            this.label5.Text = "Lets Create a Backup!!";
             // 
             // bt_Cancel
             // 
@@ -254,46 +263,35 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "To continiue, press Next...";
             // 
-            // button1
+            // bt_Prev
             // 
-            this.button1.Location = new System.Drawing.Point(97, 301);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Back";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.bt_Prev.Enabled = false;
+            this.bt_Prev.Location = new System.Drawing.Point(97, 301);
+            this.bt_Prev.Name = "bt_Prev";
+            this.bt_Prev.Size = new System.Drawing.Size(75, 23);
+            this.bt_Prev.TabIndex = 10;
+            this.bt_Prev.Text = "Back";
+            this.bt_Prev.UseVisualStyleBackColor = true;
+            this.bt_Prev.Click += new System.EventHandler(this.bt_Prev_Click);
             // 
-            // button2
+            // bt_Next
             // 
-            this.button2.Location = new System.Drawing.Point(307, 301);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Next";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.bt_Next.Location = new System.Drawing.Point(307, 301);
+            this.bt_Next.Name = "bt_Next";
+            this.bt_Next.Size = new System.Drawing.Size(75, 23);
+            this.bt_Next.TabIndex = 0;
+            this.bt_Next.Text = "Next";
+            this.bt_Next.UseVisualStyleBackColor = true;
+            this.bt_Next.Click += new System.EventHandler(this.bt_Next_Click);
             // 
-            // cb_AddToDesktop
+            // label10
             // 
-            this.cb_AddToDesktop.AutoSize = true;
-            this.cb_AddToDesktop.Location = new System.Drawing.Point(6, 109);
-            this.cb_AddToDesktop.Name = "cb_AddToDesktop";
-            this.cb_AddToDesktop.Size = new System.Drawing.Size(149, 17);
-            this.cb_AddToDesktop.TabIndex = 4;
-            this.cb_AddToDesktop.Text = "Add Shortcut to Desktop?";
-            this.cb_AddToDesktop.UseVisualStyleBackColor = true;
-            // 
-            // cb_Skip
-            // 
-            this.cb_Skip.AutoSize = true;
-            this.cb_Skip.Location = new System.Drawing.Point(277, 82);
-            this.cb_Skip.Name = "cb_Skip";
-            this.cb_Skip.Size = new System.Drawing.Size(53, 17);
-            this.cb_Skip.TabIndex = 5;
-            this.cb_Skip.Text = "Skip?";
-            this.cb_Skip.UseVisualStyleBackColor = true;
-            this.cb_Skip.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(168, 129);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(218, 13);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "The folder you choose needs to be EMPTY!!";
             // 
             // Setup
             // 
@@ -303,19 +301,22 @@
             this.ControlBox = false;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.bt_Finish);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bt_Prev);
             this.Controls.Add(this.bt_Cancel);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.bt_Next);
             this.Controls.Add(this.tbc_Setup);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Setup";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Setup";
             this.tbc_Setup.ResumeLayout(false);
             this.tbp_Welcome.ResumeLayout(false);
             this.tbp_Welcome.PerformLayout();
             this.tbp_Save.ResumeLayout(false);
             this.tbp_Save.PerformLayout();
-            this.tbp_FirstMode.ResumeLayout(false);
-            this.tbp_FirstMode.PerformLayout();
+            this.tbp_Backup.ResumeLayout(false);
+            this.tbp_Backup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,22 +331,22 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button bt_Cancel;
         private System.Windows.Forms.Button bt_Finish;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button bt_ClearSave;
         private System.Windows.Forms.Button bt_BrowseSave;
         private System.Windows.Forms.TextBox tb_SaveLocationPath;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabPage tbp_FirstMode;
+        private System.Windows.Forms.TabPage tbp_Backup;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bt_Prev;
+        private System.Windows.Forms.Button bt_Next;
         private System.Windows.Forms.TextBox tb_ModeName;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox cb_AddToDesktop;
         private System.Windows.Forms.CheckBox cb_Skip;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }

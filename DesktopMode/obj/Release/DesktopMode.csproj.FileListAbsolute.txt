@@ -1,0 +1,14 @@
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\bin\Release\DesktopMode.exe.config
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\bin\Release\DesktopMode.exe
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\bin\Release\DesktopMode.pdb
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.csprojAssemblyReference.cache
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\Interop.IWshRuntimeLibrary.dll
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.csproj.ResolveComReference.cache
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.frm_Main.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.HelpMenu.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.Properties.Resources.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.Setup.resources
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.csproj.GenerateResource.cache
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.csproj.CoreCompileInputs.cache
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.exe
+C:\Users\Dominik\source\repos\DesktopMode\DesktopMode\obj\Release\DesktopMode.pdb
